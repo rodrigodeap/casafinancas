@@ -1,0 +1,10 @@
+{
+  "name": "casafinancas",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "devDependencies": {
+    "open": "^8.4.2"
+  }
+}
