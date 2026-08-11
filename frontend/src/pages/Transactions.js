@@ -1,11 +1,66 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { format } from 'date-fns';
+import React, { useState } from 'react';
+import { format, addDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 const Transactions = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Dados mockados iniciais
+  const [transactions, setTransactions] = useState([
+    { 
+      _id: '1', 
+      description: 'Venda de Produtos', 
+      amount: 15000, 
+      type: 'receivable', 
+      status: 'pending', 
+      dueDate: addDays(new Date(), 5).toISOString(), 
+      category: 'Vendas' 
+    },
+    { 
+      _id: '2', 
+      description: 'Serviços de Consultoria', 
+      amount: 8500, 
+      type: 'receivable', 
+      status: 'pending', 
+      dueDate: addDays(new Date(), 12).toISOString(), 
+      category: 'Serviços' 
+    },
+    { 
+      _id: '3', 
+      description: 'Aluguel do Escritório', 
+      amount: 3000, 
+      type: 'payable', 
+      status: 'pending', 
+      dueDate: addDays(new Date(), 3).toISOString(), 
+      category: 'Aluguel' 
+    },
+    { 
+      _id: '4', 
+      description: 'Salários Funcionários', 
+      amount: 12000, 
+      type: 'payable', 
+      status: 'pending', 
+      dueDate: addDays(new Date(), 8).toISOString(), 
+      category: 'RH' 
+    },
+    { 
+      _id: '5', 
+      description: 'Projeto Site', 
+      amount: 5000, 
+      type: 'receivable', 
+      status: 'pending', 
+      dueDate: addDays(new Date(), 20).toISOString(), 
+      category: 'Projetos' 
+    },
+    { 
+      _id: '6', 
+      description: 'Internet e Telefone', 
+      amount: 500, 
+      type: 'payable', 
+      status: 'overdue', 
+      dueDate: addDays(new Date(), -2).toISOString(), 
+      category: 'Utilidades' 
+    },
+  ]);
+
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState({
@@ -17,56 +72,36 @@ const Transactions = () => {
     category: '',
   });
 
-  useEffect(() => {
-    fetchTransactions();
-  }, []);
-
-  const fetchTransactions = async () => {
-    try {
-      const response = await axios.get('/api/transactions');
-      setTransactions(response.data);
-    } catch (error) {
-      console.error('Erro:', error);
-      setTransactions([]);
-    }
-    setLoading(false);
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const data = { ...form, amount: Number(form.amount), dueDate: new Date(form.dueDate) };
-      if (editing) {
-        await axios.put(`/api/transactions/${editing._id}`, data);
-      } else {
-        await axios.post('/api/transactions', data);
-      }
-      setShowModal(false);
-      setEditing(null);
-      setForm({ description: '', amount: '', type: 'receivable', status: 'pending', dueDate: '', category: '' });
-      fetchTransactions();
-    } catch (error) {
-      alert('Erro ao salvar!');
+    const data = { 
+      ...form, 
+      amount: Number(form.amount), 
+      dueDate: new Date(form.dueDate).toISOString(),
+      _id: Date.now().toString()
+    };
+    
+    if (editing) {
+      setTransactions(transactions.map(t => 
+        t._id === editing._id ? { ...t, ...data } : t
+      ));
+    } else {
+      setTransactions([...transactions, data]);
     }
+    
+    setShowModal(false);
+    setEditing(null);
+    setForm({ description: '', amount: '', type: 'receivable', status: 'pending', dueDate: '', category: '' });
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     if (!window.confirm('Tem certeza que deseja excluir esta transação?')) return;
-    try {
-      await axios.delete(`/api/transactions/${id}`);
-      fetchTransactions();
-    } catch (error) {
-      alert('Erro ao excluir!');
-    }
+    setTransactions(transactions.filter(t => t._id !== id));
   };
 
   const formatCurrency = (value) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   };
-
-  if (loading) {
-    return <div style={{ padding: '24px' }}>🏠 Carregando transações...</div>;
-  }
 
   return (
     <div style={{ padding: '24px', maxWidth: '1200px', margin: '0 auto' }}>
@@ -168,7 +203,7 @@ const Transactions = () => {
         </table>
       </div>
 
-      {/* Modal */}
+      {/* Modal - mesmo código da versão anterior */}
       {showModal && (
         <div style={{ 
           position: 'fixed', 
