@@ -1,34 +1,87 @@
-const { exec } = require('child_process');
-const os = require('os');
+const { spawn } = require('child_process');
+const open = require('open');
 
-console.log('🚀 Iniciando Financial SaaS...');
+console.log('🚀 Iniciando Financial SaaS...\n');
 
-const isWindows = os.platform() === 'win32';
-const cmd = isWindows ? 'start' : 'open';
+// Função para executar comando
+function runCommand(command, args, cwd, name) {
+  return new Promise((resolve, reject) => {
+    const process = spawn(command, args, {
+      cwd,
+      shell: true,
+      stdio: 'pipe'
+    });
 
-// Iniciar backend
+    process.stdout.on('data', (data) => {
+      console.log(`[${name}] ${data.toString().trim()}`);
+    });
+
+    process.stderr.on('data', (data) => {
+      console.error(`[${name} ERROR] ${data.toString().trim()}`);
+    });
+
+    process.on('error', (error) => {
+      reject(error);
+    });
+
+    process.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(`Process ${name} exited with code ${code}`));
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
+// Iniciar backend primeiro
 console.log('📦 Iniciando backend...');
-const backend = exec('cd backend && npm install && npm run dev');
+const backend = spawn('npm', ['run', 'dev'], {
+  cwd: './backend',
+  shell: true,
+  stdio: 'pipe'
+});
 
 backend.stdout.on('data', (data) => {
-  console.log(`[BACKEND] ${data}`);
+  const msg = data.toString().trim();
+  console.log(`[BACKEND] ${msg}`);
+  // Quando o backend estiver pronto, iniciar frontend
+  if (msg.includes('Server running') || msg.includes('listening')) {
+    console.log('\n✅ Backend iniciado com sucesso!');
+    console.log('🎨 Iniciando frontend...\n');
+    
+    const frontend = spawn('npm', ['start'], {
+      cwd: './frontend',
+      shell: true,
+      stdio: 'pipe'
+    });
+
+    frontend.stdout.on('data', (data) => {
+      console.log(`[FRONTEND] ${data.toString().trim()}`);
+    });
+
+    frontend.stderr.on('data', (data) => {
+      console.error(`[FRONTEND ERROR] ${data.toString().trim()}`);
+    });
+
+    // Abrir navegador após 5 segundos
+    setTimeout(() => {
+      console.log('\n🌐 Abrindo navegador...');
+      open('http://localhost:3000');
+      console.log('\n✅ Sistema pronto para uso!');
+      console.log('📊 Dashboard: http://localhost:3000');
+      console.log('🔧 API: http://localhost:5000/api');
+      console.log('📋 Para ver transações: http://localhost:3000/transactions\n');
+    }, 5000);
+  }
 });
 
-// Iniciar frontend
-console.log('🎨 Iniciando frontend...');
-const frontend = exec('cd frontend && npm install && npm start');
-
-frontend.stdout.on('data', (data) => {
-  console.log(`[FRONTEND] ${data}`);
+backend.stderr.on('data', (data) => {
+  console.error(`[BACKEND ERROR] ${data.toString().trim()}`);
 });
 
-// Abrir navegador após 5 segundos
-setTimeout(() => {
-  console.log('🌐 Abrindo navegador...');
-  const open = require('open');
-  open('http://localhost:3000');
-}, 5000);
-
-console.log('✅ Sistema inicializado! Aguarde alguns segundos...');
-console.log('📊 Dashboard: http://localhost:3000');
-console.log('🔧 API: http://localhost:5000/api');
+// Tratamento de encerramento
+process.on('SIGINT', () => {
+  console.log('\n🛑 Encerrando servidores...');
+  process.exit();
+});
