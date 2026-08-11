@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import {
   ComposedChart, Line, XAxis, YAxis, CartesianGrid,
   Tooltip, Legend, Area, Bar, ResponsiveContainer
 } from 'recharts';
-import { format, parseISO } from 'date-fns';
+import { format, parseISO, addDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 const Dashboard = () => {
@@ -12,19 +11,12 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get('/api/dashboard/projections');
-      setData(response.data);
-    } catch (error) {
-      console.error('Erro:', error);
+    // Dados mockados - funciona sem backend
+    setTimeout(() => {
       setData(createMockData());
-    }
-    setLoading(false);
-  };
+      setLoading(false);
+    }, 1000);
+  }, []);
 
   const createMockData = () => {
     const projections = [];
@@ -33,15 +25,18 @@ const Dashboard = () => {
     now.setHours(0, 0, 0, 0);
     
     for (let i = 0; i < 30; i++) {
-      const date = new Date(now);
-      date.setDate(date.getDate() + i);
-      balance += Math.random() * 10000 - 5000;
+      const date = addDays(now, i);
+      // Simular flutuações realistas
+      const receivables = Math.random() * 8000 + 2000;
+      const payables = Math.random() * 6000 + 1000;
+      balance += receivables - payables;
+      
       projections.push({
         date: date.toISOString(),
-        balance: Math.round(balance),
-        receivables: Math.round(Math.random() * 8000 + 2000),
-        payables: Math.round(Math.random() * 6000 + 1000),
-        projectedBalance: Math.round(balance),
+        balance: Math.round(balance * 100) / 100,
+        receivables: Math.round(receivables * 100) / 100,
+        payables: Math.round(payables * 100) / 100,
+        projectedBalance: Math.round(balance * 100) / 100,
       });
     }
     
@@ -159,6 +154,12 @@ const Dashboard = () => {
             <Line type="monotone" dataKey="projectedBalance" stroke="#ff7300" name="Tendência" />
           </ComposedChart>
         </ResponsiveContainer>
+      </div>
+
+      <div style={{ marginTop: '24px', padding: '16px', background: '#f0f9ff', borderRadius: '8px', textAlign: 'center' }}>
+        <p style={{ color: '#0369a1', fontSize: '14px' }}>
+          💡 Dados de demonstração - Versão GitHub Pages
+        </p>
       </div>
     </div>
   );
