@@ -80,6 +80,30 @@
         .header-actions .btn-danger:hover {
             background: #b91c1c;
         }
+        .header-actions .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+        .header-actions .btn-success:hover {
+            background: #15803d;
+        }
+        .header-actions .btn-sync {
+            background: #7c3aed;
+            color: white;
+        }
+        .header-actions .btn-sync:hover {
+            background: #6d28d9;
+        }
+        .header-actions .btn-api {
+            background: #ef4444;
+            color: white;
+        }
+        .header-actions .btn-api:hover {
+            background: #dc2626;
+        }
+        .header-actions .btn-api.active {
+            background: #22c55e;
+        }
 
         /* ===== BOX 50/30/20 ===== */
         .rule-box {
@@ -124,6 +148,14 @@
             margin-top: 6px;
             opacity: 0.9;
         }
+        .rule-item .projected {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+        .rule-item .projected strong {
+            opacity: 1;
+        }
         .rule-item.picpay {
             background: rgba(34, 197, 94, 0.25);
             border: 1px solid rgba(34, 197, 94, 0.3);
@@ -144,6 +176,29 @@
         }
         .rule-item.mercadopago .percent { color: #38bdf8; }
         .rule-item.mercadopago .bank-name { color: #38bdf8; }
+        .rule-item.mercadopago .yield {
+            font-size: 14px;
+            color: #34d399;
+            margin-top: 6px;
+            padding: 6px 12px;
+            background: rgba(52, 211, 153, 0.15);
+            border-radius: 8px;
+            border: 1px solid rgba(52, 211, 153, 0.2);
+        }
+        .rule-item.mercadopago .yield .yield-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #34d399;
+        }
+        .rule-item.mercadopago .yield .yield-percent {
+            font-size: 14px;
+            color: #6ee7b7;
+        }
+        .rule-item.mercadopago .yield .yield-detail {
+            font-size: 11px;
+            color: #86efac;
+            margin-top: 2px;
+        }
         
         .rule-total {
             color: rgba(255,255,255,0.6);
@@ -152,6 +207,10 @@
             padding-top: 8px;
             border-top: 1px solid rgba(255,255,255,0.1);
             grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         .rule-total strong {
             color: white;
@@ -159,6 +218,12 @@
         .rule-total .highlight-picpay { color: #4ade80; }
         .rule-total .highlight-nubank { color: #a78bfa; }
         .rule-total .highlight-mercadopago { color: #38bdf8; }
+        .rule-total .sync-status {
+            color: #6ee7b7;
+            font-size: 12px;
+        }
+        .rule-total .sync-status .synced { color: #34d399; }
+        .rule-total .sync-status .pending { color: #fbbf24; }
 
         /* ===== TABS ===== */
         .tabs {
@@ -250,15 +315,6 @@
             align-items: center;
             gap: 8px;
         }
-        .card-title .bank-tag {
-            font-size: 11px;
-            font-weight: 500;
-            padding: 2px 10px;
-            border-radius: 12px;
-        }
-        .card-title .bank-tag.picpay { background: #dcfce7; color: #166534; }
-        .card-title .bank-tag.nubank { background: #ede9fe; color: #5b21b6; }
-        .card-title .bank-tag.mercadopago { background: #e0f2fe; color: #0369a1; }
 
         /* ===== LISTAS ===== */
         .list-item {
@@ -288,9 +344,6 @@
         .list-item .amount.green { color: #16a34a; }
         .list-item .amount.red { color: #dc2626; }
         .list-item .amount.orange { color: #f59e0b; }
-        .list-item .amount.picpay-color { color: #4ade80; }
-        .list-item .amount.nubank-color { color: #a78bfa; }
-        .list-item .amount.mercadopago-color { color: #38bdf8; }
 
         /* ===== BADGES ===== */
         .badge-status {
@@ -381,7 +434,7 @@
             background: white;
             padding: 28px 32px;
             border-radius: 14px;
-            max-width: 480px;
+            max-width: 520px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -463,6 +516,82 @@
         .modal .category-row select {
             flex: 1;
         }
+        .modal .yield-config {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 8px;
+        }
+        .modal .yield-config label {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #166534;
+        }
+        .modal .yield-config .yield-input-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .modal .yield-config .yield-input-group input {
+            flex: 1;
+        }
+        .modal .yield-config .yield-input-group span {
+            font-weight: 500;
+            color: #166534;
+        }
+
+        /* ===== API SIMULADA ===== */
+        .api-status {
+            background: #f3f4f6;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .api-status .status-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .api-status .status-dot.online { background: #22c55e; }
+        .api-status .status-dot.offline { background: #ef4444; }
+        .api-status .status-dot.listening { background: #f59e0b; animation: pulse 1.5s infinite; }
+        .api-status .webhook-log {
+            font-family: monospace;
+            font-size: 12px;
+            color: #4b5563;
+            max-height: 60px;
+            overflow-y: auto;
+            flex: 1;
+            min-width: 200px;
+        }
+        .api-status .webhook-log .log-entry {
+            padding: 2px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .api-status .webhook-log .log-entry .time {
+            color: #9ca3af;
+            margin-right: 8px;
+        }
+        .api-status .webhook-log .log-entry .event {
+            font-weight: 500;
+        }
+        .api-status .webhook-log .log-entry .event.deposit { color: #16a34a; }
+        .api-status .webhook-log .log-entry .event.withdraw { color: #dc2626; }
+        .api-status .webhook-log .log-entry .event.transfer { color: #f59e0b; }
+        .api-status .webhook-log .log-entry .event.investment { color: #2563eb; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
 
         /* ===== ALERTAS ===== */
         .alert-box {
@@ -498,8 +627,10 @@
             .header { flex-direction: column; align-items: stretch; }
             .header-actions { justify-content: center; }
             .rule-box { grid-template-columns: 1fr; gap: 8px; }
+            .rule-total { flex-direction: column; gap: 4px; }
             .tabs button { padding: 8px 14px; font-size: 13px; }
             .modal { padding: 20px; }
+            .api-status { flex-direction: column; align-items: stretch; }
         }
         @media (max-width: 480px) {
             .grid-4 { grid-template-columns: 1fr; }
@@ -521,9 +652,23 @@
         </div>
         <div class="header-actions">
             <button class="btn-primary" onclick="openTransactionModal()">➕ Novo Registro</button>
+            <button class="btn-sync" onclick="syncAll()" id="syncBtn">🔄 Sincronizar</button>
+            <button class="btn-api" id="apiToggleBtn" onclick="toggleAPI()">🔌 API: Desligada</button>
             <button class="btn-danger" onclick="confirmClearAll()">🗑️ Zerar</button>
         </div>
     </header>
+
+    <!-- ===== STATUS DA API ===== -->
+    <div class="api-status" id="apiStatus">
+        <div>
+            <span class="status-dot offline" id="apiStatusDot"></span>
+            <span id="apiStatusText">API Desligada</span>
+            <span style="font-size:12px;color:#6b7280;margin-left:8px;" id="apiWebhookCount">0 eventos</span>
+        </div>
+        <div class="webhook-log" id="webhookLog">
+            <div style="color:#9ca3af;font-size:12px;">📡 Aguardando eventos...</div>
+        </div>
+    </div>
 
     <!-- ===== BOX 50/30/20 ===== -->
     <div class="rule-box" id="ruleBox">
@@ -532,24 +677,34 @@
             <div class="bank-name">💚 PicPay</div>
             <div class="label">🛒 Despesas (Necessidades)</div>
             <div class="value" id="necessitiesValue">R$ 0</div>
+            <div class="projected">📊 Saldo atual: <strong id="picpayCurrentBalance">R$ 0</strong></div>
         </div>
         <div class="rule-item nubank">
             <div class="percent">30%</div>
             <div class="bank-name">💜 Nubank</div>
             <div class="label">🎯 Consumo (Desejos)</div>
             <div class="value" id="wantsValue">R$ 0</div>
+            <div class="projected">📊 Saldo atual: <strong id="nubankCurrentBalance">R$ 0</strong></div>
         </div>
         <div class="rule-item mercadopago">
             <div class="percent">20%</div>
             <div class="bank-name">💙 Mercado Pago (PF)</div>
             <div class="label">📈 Investimentos</div>
             <div class="value" id="savingsValue">R$ 0</div>
+            <div class="projected">📊 Saldo atual: <strong id="mercadopagoCurrentBalance">R$ 0</strong></div>
+            <div class="yield">
+                <div>📈 Rendimento em 30 dias</div>
+                <div class="yield-value" id="yieldValue30d">R$ 0</div>
+                <div class="yield-percent" id="yieldPercent30d">0,00% ao mês</div>
+                <div class="yield-detail" id="yieldDetail">IR: 0% | Líquido: R$ 0</div>
+            </div>
         </div>
         <div class="rule-total">
-            Renda Total: <strong id="totalIncome">R$ 0</strong> &bull;
-            <span class="highlight-picpay">PicPay: <strong id="picpayBalance">R$ 0</strong></span> &bull;
-            <span class="highlight-nubank">Nubank: <strong id="nubankBalance">R$ 0</strong></span> &bull;
+            <span>Renda Total: <strong id="totalIncome">R$ 0</strong></span>
+            <span class="highlight-picpay">PicPay: <strong id="picpayBalance">R$ 0</strong></span>
+            <span class="highlight-nubank">Nubank: <strong id="nubankBalance">R$ 0</strong></span>
             <span class="highlight-mercadopago">Mercado Pago: <strong id="mercadopagoBalance">R$ 0</strong></span>
+            <span class="sync-status" id="syncStatus">🔄 Sincronizado automaticamente</span>
         </div>
     </div>
 
@@ -558,6 +713,7 @@
         <button class="active" data-tab="tabDashboard">📊 Dashboard</button>
         <button data-tab="tabTransactions">📋 Registros</button>
         <button data-tab="tabCategories">🏷️ Categorias</button>
+        <button data-tab="tabAPI">🔌 API & Webhooks</button>
     </div>
 
     <!-- ============================================================ -->
@@ -676,6 +832,62 @@
     </div>
 
     <!-- ============================================================ -->
+    <!-- TAB 4: API E WEBHOOKS -->
+    <!-- ============================================================ -->
+    <div class="tab-content" id="tabAPI">
+        <div style="display:grid; gap:16px;">
+            <div class="card">
+                <div class="card-title">🔌 API Simulada</div>
+                <p style="color:#6b7280;font-size:14px;margin-bottom:12px;">
+                    A API escuta movimentações e atualiza automaticamente os registros e saldos.
+                </p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <button class="btn-success" onclick="simulateDeposit()">💰 Simular Depósito</button>
+                    <button class="btn-danger" onclick="simulateWithdraw()">💳 Simular Saque</button>
+                    <button class="btn-primary" onclick="simulateTransfer()">🔄 Simular Transferência</button>
+                    <button class="btn-sync" onclick="simulateInvestment()">📈 Simular Investimento</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 Motor de Cálculo Financeiro</div>
+                <p style="color:#6b7280;font-size:14px;margin-bottom:12px;">
+                    Calcula rendimento bruto e líquido com base no CDI (13,90% a.a.)
+                </p>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <div>
+                        <label style="font-size:13px;font-weight:500;">Valor Principal</label>
+                        <input type="number" id="calcPrincipal" value="10000" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;" />
+                    </div>
+                    <div>
+                        <label style="font-size:13px;font-weight:500;">Dias Corridos</label>
+                        <input type="number" id="calcDays" value="30" style="width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:6px;" />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="calculateYield()" style="margin-top:12px;">📊 Calcular Rendimento</button>
+                <div id="calcResult" style="margin-top:12px;padding:12px;background:#f3f4f6;border-radius:8px;display:none;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:14px;">
+                        <div><strong>Rendimento Bruto:</strong> <span id="calcGrossYield" style="color:#2563eb;">R$ 0</span></div>
+                        <div><strong>Alíquota IR:</strong> <span id="calcIRRate" style="color:#dc2626;">0%</span></div>
+                        <div><strong>Imposto de Renda:</strong> <span id="calcIRValue" style="color:#dc2626;">R$ 0</span></div>
+                        <div><strong>Rendimento Líquido:</strong> <span id="calcNetYield" style="color:#16a34a;">R$ 0</span></div>
+                        <div style="grid-column:1/-1;text-align:center;padding-top:8px;border-top:1px solid #e5e7eb;">
+                            <strong>Valor Total Final:</strong> <span id="calcFinalValue" style="font-size:18px;color:#7c3aed;">R$ 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📡 Webhooks Recebidos</div>
+                <div id="webhookEvents" style="max-height:200px;overflow-y:auto;font-family:monospace;font-size:12px;">
+                    <div style="color:#9ca3af;">Nenhum evento recebido ainda</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
     <!-- FOOTER -->
     <!-- ============================================================ -->
     <footer style="margin-top:30px; text-align:center; font-size:13px; color:#9ca3af; border-top:1px solid #e5e7eb; padding-top:20px;">
@@ -684,7 +896,7 @@
 </div>
 
 <!-- ============================================================ -->
-<!-- MODAL: REGISTRO (NOVA TRANSAÇÃO) -->
+<!-- MODAL: REGISTRO -->
 <!-- ============================================================ -->
 <div class="modal-overlay" id="transactionModal">
     <div class="modal">
@@ -769,7 +981,7 @@
 
 <script>
     // ============================================================
-    // 1. ESTADO GLOBAL - ZERADO
+    // 1. ESTADO GLOBAL
     // ============================================================
     let transactions = [];
     let categories = [];
@@ -778,37 +990,43 @@
     let editingTransactionId = null;
     let editingCategoryId = null;
     let categoryModalSource = 'settings';
+    let isSyncing = false;
+    let isAPIActive = false;
+    let webhookEvents = [];
+    let eventCounter = 0;
+
+    // Configurações de rendimento (CDI atual)
+    const YIELD_CONFIG = {
+        annualRate: 0.1390, // 13,90% ao ano
+        monthlyRate: 0.1390 / 12, // ~1,1583% ao mês
+        dailyRate: 0.1390 / 252, // ~0,0552% ao dia útil
+        businessDaysPerMonth: 22,
+        iofExempt: true, // Isenção total de IOF
+    };
 
     // ============================================================
-    // 2. CATEGORIAS PADRÃO (50/30/20)
+    // 2. CATEGORIAS PADRÃO
     // ============================================================
     function seedDefaultCategories() {
         categories = [
-            // PicPay (50% - Despesas/Necessidades)
             { id: String(idCounter++), name: 'Moradia', type: 'payable' },
             { id: String(idCounter++), name: 'Alimentação', type: 'payable' },
             { id: String(idCounter++), name: 'Transporte', type: 'payable' },
             { id: String(idCounter++), name: 'Saúde', type: 'payable' },
             { id: String(idCounter++), name: 'Educação', type: 'payable' },
             { id: String(idCounter++), name: 'Seguros', type: 'payable' },
-            
-            // Nubank (30% - Consumo/Desejos)
             { id: String(idCounter++), name: 'Lazer', type: 'payable' },
             { id: String(idCounter++), name: 'Vestuário', type: 'payable' },
             { id: String(idCounter++), name: 'Restaurantes', type: 'payable' },
             { id: String(idCounter++), name: 'Viagens', type: 'payable' },
             { id: String(idCounter++), name: 'Compras Online', type: 'payable' },
             { id: String(idCounter++), name: 'Assinaturas', type: 'payable' },
-            
-            // Mercado Pago (20% - Investimentos)
             { id: String(idCounter++), name: 'Ações', type: 'investment' },
             { id: String(idCounter++), name: 'Fundos Imobiliários', type: 'investment' },
             { id: String(idCounter++), name: 'Tesouro Direto', type: 'investment' },
             { id: String(idCounter++), name: 'Criptomoedas', type: 'investment' },
             { id: String(idCounter++), name: 'CDB / Renda Fixa', type: 'investment' },
             { id: String(idCounter++), name: 'Previdência', type: 'investment' },
-            
-            // Receitas (entram na renda total)
             { id: String(idCounter++), name: 'Salário', type: 'receivable' },
             { id: String(idCounter++), name: 'Freelance', type: 'receivable' },
             { id: String(idCounter++), name: 'Rendimentos', type: 'receivable' },
@@ -828,6 +1046,10 @@
     function formatDate(dateStr) {
         const d = new Date(dateStr);
         return d.toLocaleDateString('pt-BR');
+    }
+
+    function formatDateTime(date) {
+        return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     }
 
     function getStatusLabel(status) {
@@ -862,7 +1084,344 @@
     }
 
     // ============================================================
-    // 4. GERENCIAMENTO DE TABS
+    // 4. MOTOR DE CÁLCULO FINANCEIRO (CDI + IR REGRESSIVO)
+    // ============================================================
+    function calculateFinancialYield(principal, daysCorridos) {
+        // 1. Calcular dias úteis (média de 22 dias úteis por mês)
+        const businessDays = Math.round(daysCorridos * (YIELD_CONFIG.businessDaysPerMonth / 30));
+        
+        // 2. Calcular rendimento bruto (CDI diário)
+        const dailyRate = YIELD_CONFIG.dailyRate;
+        const grossYield = principal * dailyRate * businessDays;
+        
+        // 3. Calcular alíquota de IR baseada nos dias corridos
+        let irRate = 0;
+        if (daysCorridos <= 180) irRate = 0.225;
+        else if (daysCorridos <= 360) irRate = 0.20;
+        else if (daysCorridos <= 720) irRate = 0.175;
+        else irRate = 0.15;
+        
+        // 4. Calcular imposto de renda (sobre o lucro)
+        const irValue = grossYield * irRate;
+        
+        // 5. Calcular rendimento líquido
+        const netYield = grossYield - irValue;
+        
+        // 6. Valor total final
+        const finalValue = principal + netYield;
+        
+        return {
+            valor_principal: Math.round(principal * 100) / 100,
+            dias_corridos: daysCorridos,
+            dias_uteis: businessDays,
+            taxa_cdi_ano: YIELD_CONFIG.annualRate,
+            rendimento_bruto: Math.round(grossYield * 100) / 100,
+            aliquota_ir_aplicada: irRate,
+            valor_imposto_renda: Math.round(irValue * 100) / 100,
+            rendimento_liquido: Math.round(netYield * 100) / 100,
+            valor_total_final: Math.round(finalValue * 100) / 100,
+        };
+    }
+
+    // ============================================================
+    // 5. API SIMULADA E WEBHOOKS
+    // ============================================================
+    function toggleAPI() {
+        isAPIActive = !isAPIActive;
+        const btn = document.getElementById('apiToggleBtn');
+        const dot = document.getElementById('apiStatusDot');
+        const text = document.getElementById('apiStatusText');
+        
+        if (isAPIActive) {
+            btn.textContent = '🔌 API: Ligada';
+            btn.className = 'btn-api active';
+            dot.className = 'status-dot online';
+            text.textContent = 'API Online - Escutando eventos';
+            addWebhookLog('🚀 API iniciada e escutando eventos');
+            addWebhookEvent('system', 'API iniciada com sucesso');
+        } else {
+            btn.textContent = '🔌 API: Desligada';
+            btn.className = 'btn-api';
+            dot.className = 'status-dot offline';
+            text.textContent = 'API Desligada';
+            addWebhookLog('⏹️ API desligada');
+        }
+        updateWebhookCount();
+    }
+
+    function addWebhookLog(message) {
+        const log = document.getElementById('webhookLog');
+        const time = formatDateTime(new Date());
+        const entry = document.createElement('div');
+        entry.className = 'log-entry';
+        entry.innerHTML = `<span class="time">[${time}]</span> ${message}`;
+        log.prepend(entry);
+        
+        // Limitar a 10 entradas
+        while (log.children.length > 10) {
+            log.removeChild(log.lastChild);
+        }
+    }
+
+    function addWebhookEvent(type, description, data = {}) {
+        if (!isAPIActive) return;
+        
+        eventCounter++;
+        const event = {
+            id: eventCounter,
+            type: type,
+            description: description,
+            data: data,
+            timestamp: new Date().toISOString(),
+        };
+        webhookEvents.push(event);
+        
+        // Atualizar lista de eventos
+        renderWebhookEvents();
+        updateWebhookCount();
+        
+        // Adicionar ao log
+        const emojiMap = {
+            deposit: '💰',
+            withdraw: '💳',
+            transfer: '🔄',
+            investment: '📈',
+            system: '⚙️'
+        };
+        addWebhookLog(`${emojiMap[type] || '📡'} ${description}`);
+    }
+
+    function renderWebhookEvents() {
+        const container = document.getElementById('webhookEvents');
+        if (webhookEvents.length === 0) {
+            container.innerHTML = '<div style="color:#9ca3af;">Nenhum evento recebido ainda</div>';
+            return;
+        }
+        
+        container.innerHTML = webhookEvents.slice().reverse().map(e => `
+            <div style="padding:4px 0;border-bottom:1px solid #f3f4f6;">
+                <span style="color:#9ca3af;">[${formatDateTime(new Date(e.timestamp))}]</span>
+                <span class="event ${e.type}">${e.description}</span>
+                ${e.data.amount ? `<span style="color:#6b7280;"> - ${formatCurrency(e.data.amount)}</span>` : ''}
+            </div>
+        `).join('');
+    }
+
+    function updateWebhookCount() {
+        document.getElementById('apiWebhookCount').textContent = `${webhookEvents.length} eventos`;
+    }
+
+    // ============================================================
+    // 6. SIMULAÇÕES DE MOVIMENTAÇÕES (WEBHOOKS)
+    // ============================================================
+    function simulateDeposit() {
+        const amount = Math.round((Math.random() * 5000 + 500) * 100) / 100;
+        const description = `Depósito de ${formatCurrency(amount)}`;
+        
+        addWebhookEvent('deposit', description, { amount });
+        addWebhookLog(`💰 Depósito recebido: ${formatCurrency(amount)}`);
+        
+        // Criar registro automático
+        createAutoTransaction({
+            description: `📥 Depósito - ${formatCurrency(amount)}`,
+            amount: amount,
+            type: 'receivable',
+            category: categories.find(c => c.name === 'Rendimentos')?.id || '',
+            status: 'paid',
+            dueDate: new Date().toISOString(),
+        });
+        
+        syncAll();
+    }
+
+    function simulateWithdraw() {
+        const amount = Math.round((Math.random() * 1000 + 100) * 100) / 100;
+        const description = `Saque de ${formatCurrency(amount)}`;
+        
+        addWebhookEvent('withdraw', description, { amount });
+        addWebhookLog(`💳 Saque realizado: ${formatCurrency(amount)}`);
+        
+        createAutoTransaction({
+            description: `📤 Saque - ${formatCurrency(amount)}`,
+            amount: amount,
+            type: 'payable',
+            category: categories.find(c => c.name === 'Consumo')?.id || '',
+            status: 'paid',
+            dueDate: new Date().toISOString(),
+        });
+        
+        syncAll();
+    }
+
+    function simulateTransfer() {
+        const amount = Math.round((Math.random() * 2000 + 200) * 100) / 100;
+        const description = `Transferência de ${formatCurrency(amount)}`;
+        
+        addWebhookEvent('transfer', description, { amount });
+        addWebhookLog(`🔄 Transferência realizada: ${formatCurrency(amount)}`);
+        
+        // Criar duas transações: uma de saída e uma de entrada
+        createAutoTransaction({
+            description: `📤 Transferência enviada - ${formatCurrency(amount)}`,
+            amount: amount,
+            type: 'payable',
+            category: categories.find(c => c.name === 'Transferências')?.id || '',
+            status: 'paid',
+            dueDate: new Date().toISOString(),
+        });
+        
+        setTimeout(() => {
+            createAutoTransaction({
+                description: `📥 Transferência recebida - ${formatCurrency(amount)}`,
+                amount: amount,
+                type: 'receivable',
+                category: categories.find(c => c.name === 'Transferências')?.id || '',
+                status: 'paid',
+                dueDate: new Date().toISOString(),
+            });
+            syncAll();
+        }, 500);
+        
+        syncAll();
+    }
+
+    function simulateInvestment() {
+        const amount = Math.round((Math.random() * 10000 + 1000) * 100) / 100;
+        const days = Math.round(Math.random() * 60 + 30);
+        const description = `Investimento de ${formatCurrency(amount)} por ${days} dias`;
+        
+        addWebhookEvent('investment', description, { amount, days });
+        addWebhookLog(`📈 Investimento realizado: ${formatCurrency(amount)} por ${days} dias`);
+        
+        // Calcular rendimento projetado
+        const yieldResult = calculateFinancialYield(amount, days);
+        
+        addWebhookLog(`📊 Rendimento projetado: ${formatCurrency(yieldResult.rendimento_liquido)} (${(yieldResult.aliquota_ir_aplicada * 100)}% IR)`);
+        
+        createAutoTransaction({
+            description: `📈 Investimento - ${formatCurrency(amount)} (${days} dias)`,
+            amount: amount,
+            type: 'investment',
+            category: categories.find(c => c.name === 'CDB / Renda Fixa')?.id || '',
+            status: 'pending',
+            dueDate: new Date(Date.now() + days * 24 * 60 * 60 * 1000).toISOString(),
+        });
+        
+        syncAll();
+    }
+
+    function createAutoTransaction(data) {
+        const obj = {
+            id: String(idCounter++),
+            description: data.description,
+            amount: data.amount,
+            type: data.type,
+            category: data.category,
+            status: data.status || 'pending',
+            dueDate: data.dueDate || new Date().toISOString(),
+            isAutoGenerated: true,
+            createdAt: new Date().toISOString(),
+        };
+        transactions.push(obj);
+    }
+
+    // ============================================================
+    // 7. EXIBIÇÃO DO MOTOR DE CÁLCULO
+    // ============================================================
+    function calculateYield() {
+        const principal = parseFloat(document.getElementById('calcPrincipal').value) || 0;
+        const days = parseInt(document.getElementById('calcDays').value) || 30;
+        
+        if (principal <= 0 || days <= 0) {
+            alert('Preencha valores válidos para o cálculo.');
+            return;
+        }
+        
+        const result = calculateFinancialYield(principal, days);
+        
+        document.getElementById('calcGrossYield').textContent = formatCurrency(result.rendimento_bruto);
+        document.getElementById('calcIRRate').textContent = (result.aliquota_ir_aplicada * 100).toFixed(1) + '%';
+        document.getElementById('calcIRValue').textContent = formatCurrency(result.valor_imposto_renda);
+        document.getElementById('calcNetYield').textContent = formatCurrency(result.rendimento_liquido);
+        document.getElementById('calcFinalValue').textContent = formatCurrency(result.valor_total_final);
+        document.getElementById('calcResult').style.display = 'block';
+        
+        addWebhookLog(`🧮 Cálculo realizado: ${formatCurrency(principal)} → ${formatCurrency(result.valor_total_final)} (${result.dias_corridos} dias)`);
+    }
+
+    // ============================================================
+    // 8. SINCRONIZAÇÃO
+    // ============================================================
+    function syncAll() {
+        if (isSyncing) return;
+        isSyncing = true;
+        const syncBtn = document.getElementById('syncBtn');
+        syncBtn.textContent = '⏳ Sincronizando...';
+        syncBtn.classList.add('syncing');
+
+        setTimeout(() => {
+            updateBalances();
+            calculateAndDisplayYields();
+            document.getElementById('syncStatus').innerHTML = '✅ Sincronizado em ' + new Date().toLocaleTimeString('pt-BR');
+            
+            syncBtn.textContent = '✅ Sincronizado';
+            syncBtn.classList.remove('syncing');
+            
+            setTimeout(() => {
+                syncBtn.textContent = '🔄 Sincronizar';
+            }, 2000);
+            
+            isSyncing = false;
+            renderAll();
+        }, 800);
+    }
+
+    // ============================================================
+    // 9. ATUALIZAÇÃO DE SALDOS
+    // ============================================================
+    function updateBalances() {
+        const active = transactions.filter(t => t.status !== 'paid');
+        
+        const totalReceivable = active.filter(t => t.type === 'receivable').reduce((s, t) => s + t.amount, 0);
+        const totalPayable = active.filter(t => t.type === 'payable').reduce((s, t) => s + t.amount, 0);
+        const totalInvestment = active.filter(t => t.type === 'investment').reduce((s, t) => s + t.amount, 0);
+
+        const picpayBalance = totalPayable;
+        const nubankBalance = totalInvestment;
+        const mercadopagoBalance = totalReceivable - totalPayable - totalInvestment;
+
+        window._balances = {
+            picpay: picpayBalance,
+            nubank: nubankBalance,
+            mercadopago: mercadopagoBalance,
+            totalReceivable,
+            totalPayable,
+            totalInvestment
+        };
+    }
+
+    // ============================================================
+    // 10. CÁLCULO E EXIBIÇÃO DE RENDIMENTOS
+    // ============================================================
+    function calculateAndDisplayYields() {
+        const mercadopagoBalance = window._balances?.mercadopago || 0;
+        
+        if (mercadopagoBalance > 0) {
+            const yieldResult = calculateFinancialYield(mercadopagoBalance, 30);
+            
+            document.getElementById('yieldValue30d').textContent = formatCurrency(yieldResult.rendimento_liquido);
+            document.getElementById('yieldPercent30d').textContent = (yieldResult.aliquota_ir_aplicada * 100).toFixed(2) + '% de IR';
+            document.getElementById('yieldDetail').textContent = 
+                `Bruto: ${formatCurrency(yieldResult.rendimento_bruto)} | Líquido: ${formatCurrency(yieldResult.rendimento_liquido)} | IR: ${(yieldResult.aliquota_ir_aplicada * 100).toFixed(1)}%`;
+        } else {
+            document.getElementById('yieldValue30d').textContent = 'R$ 0';
+            document.getElementById('yieldPercent30d').textContent = '0,00% ao mês';
+            document.getElementById('yieldDetail').textContent = 'Sem investimentos para render';
+        }
+    }
+
+    // ============================================================
+    // 11. GERENCIAMENTO DE TABS
     // ============================================================
     document.querySelectorAll('.tabs button').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -872,11 +1431,12 @@
             document.getElementById(this.dataset.tab).classList.add('active');
             if (this.dataset.tab === 'tabCategories') renderCategories();
             if (this.dataset.tab === 'tabTransactions') renderTransactions();
+            if (this.dataset.tab === 'tabAPI') renderWebhookEvents();
         });
     });
 
     // ============================================================
-    // 5. MODAIS
+    // 12. MODAIS
     // ============================================================
     function openModal(id) {
         document.getElementById(id).classList.add('active');
@@ -899,7 +1459,7 @@
     });
 
     // ============================================================
-    // 6. REGISTROS (TRANSAÇÕES) - CRUD
+    // 13. REGISTROS (TRANSAÇÕES) - CRUD
     // ============================================================
     function populateCategorySelect(selectId, selectedValue) {
         const select = document.getElementById(selectId);
@@ -975,6 +1535,12 @@
         }
 
         closeModal('transactionModal');
+        
+        if (isAPIActive) {
+            addWebhookEvent('system', `Registro ${editingTransactionId ? 'editado' : 'criado'}: ${description}`, { amount });
+        }
+        
+        syncAll();
         renderAll();
     });
 
@@ -986,6 +1552,10 @@
     function deleteTransaction(id) {
         if (!confirm('Tem certeza que deseja excluir este registro?')) return;
         transactions = transactions.filter(t => t.id !== id);
+        if (isAPIActive) {
+            addWebhookEvent('system', `Registro excluído: ID ${id}`);
+        }
+        syncAll();
         renderAll();
     }
 
@@ -1005,7 +1575,7 @@
 
         tbody.innerHTML = filtered.map(t => `
             <tr>
-                <td><strong>${t.description}</strong></td>
+                <td><strong>${t.description}</strong> ${t.isAutoGenerated ? '<span style="font-size:10px;color:#6b7280;">🤖 auto</span>' : ''}</td>
                 <td><strong>${formatCurrency(t.amount)}</strong></td>
                 <td><span class="${getTypeClass(t.type)}">${getTypeLabel(t.type)}</span></td>
                 <td>${getCategoryName(t.category)}</td>
@@ -1020,7 +1590,7 @@
     }
 
     // ============================================================
-    // 7. CATEGORIAS - CRUD
+    // 14. CATEGORIAS - CRUD
     // ============================================================
     function openCategoryModal(data) {
         categoryModalSource = 'settings';
@@ -1113,13 +1683,14 @@
     }
 
     // ============================================================
-    // 8. DASHBOARD - RENDER
+    // 15. DASHBOARD
     // ============================================================
     function renderDashboard() {
+        updateBalances();
+        
         const active = transactions.filter(t => t.status !== 'paid');
         const totalReceivable = active.filter(t => t.type === 'receivable').reduce((s, t) => s + t.amount, 0);
         const totalPayable = active.filter(t => t.type === 'payable').reduce((s, t) => s + t.amount, 0);
-        const totalInvestment = active.filter(t => t.type === 'investment').reduce((s, t) => s + t.amount, 0);
         const balance = totalReceivable - totalPayable;
 
         document.getElementById('totalReceivable').textContent = formatCurrency(totalReceivable);
@@ -1129,12 +1700,10 @@
         balanceEl.textContent = formatCurrency(balance);
         balanceEl.className = 'value ' + (balance >= 0 ? 'green' : 'red');
 
-        // Projeção
         const proj = generateProjections();
         const last = proj[proj.length - 1];
         document.getElementById('projectedBalance').textContent = formatCurrency(last?.balance || 0);
 
-        // 50/30/20
         const totalIncome = transactions
             .filter(t => t.type === 'receivable' && t.status !== 'paid')
             .reduce((s, t) => s + t.amount, 0);
@@ -1147,7 +1716,6 @@
             .filter(t => t.type === 'investment' && t.status !== 'paid')
             .reduce((s, t) => s + t.amount, 0);
 
-        // Valores para cada banco
         document.getElementById('necessitiesValue').textContent = formatCurrency(totalExpenses);
         document.getElementById('wantsValue').textContent = formatCurrency(totalInvestments);
         document.getElementById('savingsValue').textContent = formatCurrency(totalIncome - totalExpenses - totalInvestments);
@@ -1156,18 +1724,18 @@
         document.getElementById('nubankBalance').textContent = formatCurrency(totalInvestments);
         document.getElementById('mercadopagoBalance').textContent = formatCurrency(totalIncome - totalExpenses - totalInvestments);
 
-        // Alertas
+        document.getElementById('picpayCurrentBalance').textContent = formatCurrency(totalExpenses);
+        document.getElementById('nubankCurrentBalance').textContent = formatCurrency(totalInvestments);
+        document.getElementById('mercadopagoCurrentBalance').textContent = formatCurrency(totalIncome - totalExpenses - totalInvestments);
+
+        calculateAndDisplayYields();
         renderAlerts();
-
-        // Próximos
         renderNextItems();
-
-        // Gráfico
         renderChart(proj);
     }
 
     // ============================================================
-    // 9. ALERTAS
+    // 16. ALERTAS
     // ============================================================
     function renderAlerts() {
         const container = document.getElementById('alertsContainer');
@@ -1199,7 +1767,7 @@
     }
 
     // ============================================================
-    // 10. PRÓXIMOS VENCIMENTOS E RECEITAS
+    // 17. PRÓXIMOS VENCIMENTOS E RECEITAS
     // ============================================================
     function renderNextItems() {
         const today = new Date();
@@ -1249,7 +1817,7 @@
     }
 
     // ============================================================
-    // 11. PROJEÇÕES E GRÁFICO
+    // 18. PROJEÇÕES E GRÁFICO
     // ============================================================
     function generateProjections() {
         const proj = [];
@@ -1356,7 +1924,7 @@
     }
 
     // ============================================================
-    // 12. ZERAR SISTEMA
+    // 19. ZERAR SISTEMA
     // ============================================================
     function confirmClearAll() {
         openModal('confirmModal');
@@ -1366,13 +1934,18 @@
         transactions = [];
         idCounter = 1;
         seedDefaultCategories();
+        webhookEvents = [];
+        eventCounter = 0;
         closeModal('confirmModal');
+        syncAll();
         renderAll();
+        renderWebhookEvents();
+        updateWebhookCount();
         alert('✅ Todos os dados foram zerados! O sistema está pronto para receber suas informações pessoais.');
     }
 
     // ============================================================
-    // 13. RENDER GERAL
+    // 20. RENDER GERAL
     // ============================================================
     function renderAll() {
         renderDashboard();
@@ -1382,15 +1955,26 @@
     }
 
     // ============================================================
-    // 14. INICIALIZAÇÃO
+    // 21. INICIALIZAÇÃO
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(() => {
+            syncAll();
+        }, 500);
+        
+        setInterval(() => {
+            syncAll();
+        }, 60000);
+        
         renderAll();
         console.log('🏠 CasaFinanças - 50/30/20 carregado!');
         console.log('💚 PicPay (50%) - Despesas');
         console.log('💜 Nubank (30%) - Consumo');
         console.log('💙 Mercado Pago (20%) - Investimentos');
         console.log(`📊 ${transactions.length} registros, ${categories.length} categorias`);
+        console.log('🔌 API: Desligada (clique em "API: Desligada" para ativar)');
+        console.log(`📈 CDI: ${(YIELD_CONFIG.annualRate * 100).toFixed(2)}% a.a. | IR Regressivo`);
+        console.log('🧮 Motor de cálculo financeiro disponível na aba "API & Webhooks"');
     });
 </script>
 
